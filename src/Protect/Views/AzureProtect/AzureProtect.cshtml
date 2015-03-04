@@ -1,0 +1,233 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>雲端資料</title>
+    <link href="~/css/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/css/css.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic' rel='stylesheet' type='text/css' />
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/GoogleScript.js"></script>
+    @*<script src="~/JavaScript.js"></script*@>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <nav>
+        <!-- 登入後 -->
+        
+        <div id="LoginState" class="login_area" style="display:none;">
+            <div class="btn_log">
+                <a href="javascript:void(0)" onclick="LogOutRequest(); ">LOGOUT</a>
+            </div>
+            <div id="NameBlock" class="name"></div>
+            <div class="profile">
+                <img src="~/css/images/green.jpg" width="40" height="40" />
+            </div>
+        </div>
+
+        <!-- 登入前 -->
+
+        <div id="LogoutState" class="login_area" style="display:block;">
+            <div class="btn_log">
+                <a href="javascript:void(0)" onclick="CheckUserRight('Register');">註冊</a>
+                <div class="btn_log">
+                    <a href="javascript:void(0)" onclick="CheckUserRight('Login');">LOGIN</a>
+
+                </div>
+
+                <input id="UserName" name="" type="text" style="margin-right:0px;" />
+                <div class="name">PASSWORD</div>
+                <input id="Password" name="" type="text" />
+                <div class="name">ACCOUNT</div>
+
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <div class="wrap">
+        <div class="left">
+            <div class="route">
+                <h2 style="margin-left:25px;">FROM</h2>
+                <input id="FromText" name="" type="text" />
+                <h2>TO</h2>
+                <input id="ToText" name="" type="text" style="margin-right:0px;" />
+                <div class="btn_log btn_route">
+                    <a href="javascript:void(0)" onclick="Getdirections();">ROUTE</a>
+                </div>
+            </div>
+            <div class="map">
+                <div id="map_canvas_custom_238233" style="width:650px; height:440px"></div>
+            </div>
+        </div>
+        <div class="right">      
+                <div class="submenu">
+                    <ul>
+                        <li style="margin-left:18px;">
+                            <a href="javascript:void(0)" onclick="ChangeTabAction('Cloud')">雲端資訊</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" onclick="ChangeTabAction('MyGroup')">我的群組</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">即時資訊</a>
+                            <ul>
+                                <li><a href="javascript:void(0)" onclick="ChangeTabAction('Weather')">天氣特報</a>
+                                </li>
+                                <li><a href="javascript:void(0)" onclick="ChangeTabAction('Disaster')">天災警告</a>
+                                </li>
+                                <li><a href="javascript:void(0)" onclick="ChangeTabAction('Chartroom')">聊天室</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            <div id="Cloud">
+                <div  style="width: 350px; height: 450px; overflow: auto;">
+                    <div class="cloud">
+                        <ul>
+                            <li>
+                                <a href="javascript:;">環境監測數據</a>
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('weather');">天氣</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('radiation');">輻射</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('uv');">紫外線</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('ocean');">海面氣象</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('air');">空氣品質</a>
+                                    </li>
+                                </ul>
+
+                            </li>
+                            <li>
+                                <a href="javascript:;">緊急防災處理中心</a>
+
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('1');">海巡</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('2');">派出所</a>
+                                    </li>
+                                    <li>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('3');">消防隊</a>
+                                    </li>
+                                    <li>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('4');">警察總局</a>
+                                    </li>
+                                    <li>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('5');">醫院</a>
+                                    </li>
+                                    <li>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('6');">應變中心</a>
+                                    </li>
+                                    <li>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('7');">清潔隊</a>
+                                    </li>
+                                    <li>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="showMessage('8');">災民收容所</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+
+                <div id="MyGroup" style="display:none">
+                    <div style="width: 300px; height: 300px; overflow: auto;" >
+                        <div id="TreeViewUser" class="member" style="overflow:auto;">
+                            <ul id="tree"></ul>
+                        </div>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <input id="GroupCreate" style="width:100%" type="text" />
+                                <button id="CreateButton" onclick="CreateGroup()">建立群組</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="GroupID" style="width:100%" type="text" />
+                                <button id="AddGroup" onclick="AddGroup()">加入群組ID</button>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div id="Weather">
+                    <div style="width: 300px; height: 400px; overflow: auto;">
+                        <table class="weather" id="weatherData">
+
+                        </table>
+                    </div>
+                </div>
+            <div id="Disaster" style="display:none">
+                <div class="alert">
+                    <div class="search_form">
+                        <select id="ddlType">
+                            <option value="0">全部</option>
+                            <option value="1">地震</option>
+                            <option value="2">海嘯</option>
+                            <option value="3">降雨</option>
+                            <option value="4">颱風</option>
+                            <option value="5">水庫洩洪</option>
+                            <option value="6">淹水</option>
+                            <option value="8">河川高水位</option>
+                            <option value="9">道路封閉</option>
+                        </select>
+                        <button id="Search" onclick="GetDisasterData()">收尋</button>
+                    </div>
+                    <div style="width: 300px; height: 400px; overflow: auto;">
+                        <table id="table_Disaster" cellspacing="2"></table>
+                    </div>
+                    </div>
+                </div>
+                    <div id="Chartroom" style="display:none">
+                        <div class="chat">
+                            <div class="chat_area">
+                                <div style="width: 300px; height: 300px; overflow: auto;" id="chat_areaSpace">
+                                </div>
+                            </div>
+                            <div class="chat_form">
+                                <select name="select" id="select" class="form_style"></select>
+                                <textarea name="textarea" id="textarea" class="form_style"></textarea>
+                            </div>
+                            <div class="clear"></div>
+                            <a href="#" class="search_btn" onclick="SendMessageToServer();">送出</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+</body>
+
+</html>
