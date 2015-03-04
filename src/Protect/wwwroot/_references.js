@@ -5,4 +5,3 @@
 /// <reference path="lib/bootstrap/js/bootstrap.js" />
 /// <reference path="lib/jquery/js/jquery.js" />
 /// <reference path="googlescript.js" />
-/// <reference path="javascript.js" />

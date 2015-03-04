@@ -169,10 +169,6 @@ function GetGoogleMap(jsonData) {
     }
 }
 
-function LogOutRequest() {
-    UserID = "";
-}
-
 
 //頁簽切換
 function ChangeTabAction(idShow) {
@@ -197,10 +193,7 @@ function ChangeTabAction(idShow) {
     }
 }
 
-function LogOutRequest() {
-    UserID = "";
 
-}
 
 function GetWeatherData()
 {
@@ -286,21 +279,26 @@ function createAJAX() {
 function onRcvData() {
     if (ajax.readyState == 4) {
         if (ajax.status == 200) {
-            UserID = ajax.responseText;
-            if (UserID.length > 0) {
-                document.getElementById("LogoutState").style.display = "none";
-                document.getElementById("LoginState").style.display = "block";
+            if (ajax.responseText != "success")
+            {
+                if (ajax.responseText.length > 0 && ajax.responseText.length < 4) {
+                    UserID = ajax.responseText;
+                    document.getElementById("LogoutState").style.display = "none";
+                    document.getElementById("LoginState").style.display = "block";
 
-                GetGroupData(UserID);
-                GetGroup();
+                    GetGroupData(UserID);
+                    GetGroup();
+                }
+                else {
+                    document.getElementById("LogoutState").style.display = "block";
+                    document.getElementById("LoginState").style.display = "none";
+                    alert(ajax.responseText);
+                }
             }
-            else {
-                document.getElementById("LogoutState").style.display = "block";
-                document.getElementById("LoginState").style.display = "none";
+            else
+            {
+                alert("註冊成功");
             }
-            //alert(ajax.responseText)
-            //var content = document.getElementById('content');
-            //content.innerHTML = ajax.responseText;
         } else {
             alert("伺服器處理錯誤");
         }
@@ -649,6 +647,8 @@ function LogOutRequest() {
             ul.removeChild(ul.firstChild);
         }
     }
+
+    document.getElementById("textarea").value = "";
     
 }
 
